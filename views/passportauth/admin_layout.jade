@@ -1,0 +1,106 @@
+html(ng-app='app')
+  head
+    title Mesonet Admin Panel
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    
+
+    //  Cascading Style Sheets
+    link(rel="stylesheet", href="/linker/styles/font-awesome.css")
+    link(rel="stylesheet", href="/linker/styles/bootstrap.css")
+    link(rel="stylesheet", href="/linker/styles/sb-admin.css")
+
+    // Javascript
+    script(type='text/javascript', src='/linker/js/jquery-1.9.1.min.js')
+    script(type="text/javascript", src="/linker/js/angular.js")
+    script(type="text/javascript", src="/linker/js/ui-bootstrap.js")
+    script(type="text/javascript", src="/linker/js/ui-bootstrap-tpls.js")
+    script(type="text/javascript", src="/linker/js/socket.io.js")
+    script(type="text/javascript", src="/linker/js/angular-socket.io.js")
+    script(type="text/javascript", src="/linker/js/angular-sails.io.js")
+    script(type="text/javascript", src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular-route.min.js")
+    script(type="text/javascript", src="/linker/js/app.js")  
+    script(type="text/javascript", src="/linker/js/services/sailsSocket.js")
+    script(type="text/javascript", src="/linker/js/controllers/sailsSocketCtrl.js")
+    script(type="text/javascript", src="/linker/js/controllers/adminUserCtrl.js")
+
+  body
+    
+    script(type="text/ng-template", id="errorModalContent.html")
+      .modal-body
+        .alert.alert-danger.no-margin-bot
+          div: strong Error:
+          div {{error.message}}
+
+    script(type="text/ng-template", id="UserModalContent.html")
+      .modal-header
+        h3.modal-title
+          span(ng-show="user.id") Edit
+          span(ng-hide="user.id") New
+          = ' User'
+      .modal-body
+        .alert.alert-danger(ng-show="message!=''") {{message}}
+        form(role="form")
+          .form-group
+            label(for="todoTitle") Username
+            input.form-control(type="text", placeholder="Username", ng-model="user.username")
+          .form-group
+            label(for="todoTitle") Email
+            input.form-control(type="text", placeholder="Email", ng-model="user.email")
+          .form-group(ng-hide="user.id")
+            label(for="todoTitle") Password
+            input.form-control(type="password", placeholder="Password", ng-model="user.password")
+      .modal-footer
+        button.btn.btn-default(ng-click="cancel()") Cancel
+        button.btn.btn-danger(ng-click="ok('delete')", ng-show="user.id") Delete
+        button.btn.btn-primary(ng-click="ok('save')") Save
+
+    block body
+    #wrapper(ng-controller="adminUserCtrl")
+      nav.navbar.navbar-default.navbar-static-top(role='navigation', style='margin-bottom: 0;')
+        .navbar-header
+          button.navbar-toggle(type='button', data-toggle='collapse', data-target='.sidebar-collapse')
+            span.sr-only Toggle navigation
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          a.navbar-brand(href='/') Mesonet Admin Panel
+        ul.nav.navbar-top-links.navbar-right
+          li.dropdown
+              a.dropdown-toggle(data-toggle='dropdown', href='#')
+                i.fa.fa-user.fa-fw
+                i.fa.fa-caret-down
+              ul.dropdown-menu.dropdown-user
+                li
+                  a(href='#')
+                    i.fa.fa-user.fa-fw
+                    | User Profile
+                li
+                  a(href='#')
+                    i.fa.fa-gear.fa-fw
+                    | Settings
+                li.divider
+                li
+                  a(ng-click="logout()")
+                    i.fa.fa-sign-out.fa-fw
+                    | Logout
+
+      nav.navbar-default.navbar-static-side(role='navigation')
+        center(style="font-size:24pt")
+          ='New York'
+          i.fa.fa-globe.fa-5x
+          ='Mesonet'
+        .sidebar-collapse
+          ul#side-menu.nav
+            li
+              a(href='#')
+                i.fa.fa-users
+                | Users
+            //- li
+            //-   a(href='#/posts')
+            //-     i.i.fa.fa-comments
+            //-     | Comments
+
+     #page-wrapper
+     block page-wrapper
+     

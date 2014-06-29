@@ -1,0 +1,70 @@
+<div>
+	<div class='modal-header' style='padding:0px;'>
+  	<input class ='form-control' ng-model="station.name" ng-disabled="!editable" style="border:none;color:#fff;font-weight:bold;font-size:16px;box-shadow:none;background-color:rgba(131, 169, 211, 0.8)">
+ 	</div>
+ 	<div class='modal-body'>
+ 		<table class="table table-hover">
+ 		<tr>
+			<td><strong>Station Id:</stong></td><td>{{station.id}}</td>
+		</tr>
+		<tr ng-hide="!editable || accessLevel < '3'">
+	  	<td><strong>Station Type:</strong></td>
+			<td>
+		  	<select ng-model="station.type" ng-change='changeIcon(station)' style='padding:5px;background-color:#fff'>
+			  	<option value='mesonet'> Mesonet Site</option>
+			  	<option value='profiler'> Profiler site </option>
+			  	<option value='suny'> SUNY System Site</option>
+			  	<option value='primary_Canal'> Primary Canal Site</option>
+			  	<option value='primary_Profiler'>Primary Profiler site </option>
+			  	<option value='primary_SUNY'>Primary SUNY System Site</option>
+			  	<option value='primary_NEPP'>Primary NEPP</option>
+			  	<option value='secondary_Profiler'>Secondary Profiler site </option>
+			  	<option value='secondary_SUNY'>Secondary SUNY System Site</option>
+			  	<option value='secondary_Canal'>Secondary Canal Site</option>
+			  	<option value='secondary_NEPP'>Secondary NEPP Site</option>
+			  	<option value='high-impact'> Frequent high-impact events </option>
+			  	<option value='deficiency'> Model deficiency areas </option>
+			  	<option value='other-sectors'> Beneficial to other sectors </option>
+			  	<option value='snow'> Snow Measurement Site</option>
+			  	<option value='userL2'> Siting Committee Site</option>
+		  	</select>
+		  </td>
+	  <tr>
+	  	<td><strong>Location:</strong></td><td><input ng-model="station.lat" ng-disabled="!editable" style="border:none;box-shadow:none">,<input ng-model="station.lng" ng-disabled="!editable" style="border:none;box-shadow:none"></td>
+		</tr>
+		<tr>
+	  	<td><strong>County:</strong></td><td>{{station.County_Name}}</td>
+		</tr>
+		<tr>
+	  	<td><strong>Elevation:</strong></td><td>{{station.elevation}} meters</td>
+		</tr>
+		<tr>
+	  	<td><strong>Congressional District:</strong></td><td>{{station.Congressional_District}}</td>
+		</tr>
+		<tr>
+	  	<td><strong>Assembly District:</strong></td><td>{{station.Assembly_District}}</td>
+		</tr>
+		<tr>
+	  	<td><strong>Senate District:</strong></td><td>{{station.Senate_District}}</td>
+		</tr>
+
+		<!-- <tr >
+	  	<td><strong>First Tier Site:</strong></td><td ng-show="station.type == ''">YES</td><td>NO</td>
+		</tr> -->
+		<tr ng-show="!saved">
+	  	<td colspan="2"><div class="alert alert-danger">Must save station to add a comment.</div></td>
+		</tr>
+		<tr>
+			<td>
+				<button ng-show='editable' class='btn btn-danger btnDelete' style="background-color: #d2322d;border-color: #ac2925;" ng-click="deleteStation(station.lat*1+station.lng*1)">Delete</button>
+			</td>
+			<td>
+			<div class="btn-group">
+				<button class='btn btn-default col-sm-5' ng-click="addComment(station.id)" style="font-size:10px" ng-disabled='!saved'>Comment</button>
+				<button class='btn btn-default col-sm-7' ng-click="viewComments(station.lat+station.lng)" style="font-size:10px;padding-left:7px;" ng-disabled="station.comments.length == 0">View Comments ({{station.comments.length}})</button>
+				<div class="btn-group">
+			</td>
+		<tr>
+		</table>
+	</div>
+</div>
