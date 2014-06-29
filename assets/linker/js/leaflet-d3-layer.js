@@ -108,11 +108,11 @@
       bounds = d3.geo.bounds(this.geojson);
       reset = function() {
         var bottomLeft, bufferPixels, topRight;
-        bufferPixels = 15;
+        bufferPixels = 151;
         bottomLeft = project(bounds[0]);
         topRight = project(bounds[1]);
-        svg.attr("width", topRight[0] - bottomLeft[0] + 2 * bufferPixels);
-        svg.attr("height", bottomLeft[1] - topRight[1] + 2 * bufferPixels);
+        svg.attr("width", topRight[0] - bottomLeft[0] + 5 * bufferPixels);
+        svg.attr("height", bottomLeft[1] - topRight[1] + 5 * bufferPixels);
         svg.style("margin-left", "" + (bottomLeft[0] - bufferPixels) + "px");
         svg.style("margin-top", "" + (topRight[1] - bufferPixels) + "px");
         g.attr("transform", "translate(" + (-bottomLeft[0] + bufferPixels) + "," + (-topRight[1] + bufferPixels) + ")");
